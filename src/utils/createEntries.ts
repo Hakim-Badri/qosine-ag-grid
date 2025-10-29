@@ -1,6 +1,7 @@
-import type { Entry } from "../types";
+import type { Entry, YearKey } from "../types";
 
-const years = [2025, 2024, 2023, 2022];
+
+const years: YearKey[] = [2025, 2024, 2023, 2022];
 
 const randomAmount = (min = 0, max = 50000) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
@@ -20,25 +21,24 @@ export function createEntries(count = 20): Entry[] {
     }));
 
     const templateYearData = () =>
-        years.reduce((acc: any, year) => {
+        years.reduce((acc, year) => {
             const total = randomAmount(1000, 50000);
             acc[year] = {
                 total_amount: total,
-                // Price (2025) and acc1..acc4 amounts
-                price: randomAmount(0, total),
                 acc1: { amount: randomAmount(0, total), isBilled: true },
                 acc2: { amount: randomAmount(0, total), isBilled: true },
                 acc3: { amount: randomAmount(0, total), isBilled: true },
                 acc4: { amount: randomAmount(0, total), isBilled: true },
-            };
+            } as any;
             return acc;
-        }, {});
+        }, {} as Record<YearKey, any>);
 
     return Array.from({ length: count }, (_, i) => ({
+        _id: `entry_${i + 1}`,
         service: services[i],
         act: acts[i],
         quote: "",
         remarks: "",
         yearData: templateYearData(),
-    })) as Entry[];
+    }));
 }
