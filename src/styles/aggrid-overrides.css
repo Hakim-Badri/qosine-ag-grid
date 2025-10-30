@@ -1,0 +1,41 @@
+/* src/styles/aggrid-overrides.css */
+
+/* Light grey background for non-editable cells */
+.ag-grid .ag-cell.non-editable {
+  background-color: #f3f3f3 !important;
+}
+
+/* Red background for negative Diff cells */
+.ag-grid .ag-cell.negative-diff {
+  background-color: #ffe0e0 !important;
+  color: #a10000 !important;
+  font-weight: 600;
+}
+
+/* Optional hover effect on non-editable cells */
+.ag-grid .ag-cell.non-editable:hover {
+  background-color: #e8e8e8 !important;
+}
+
+.ag-summary {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: color(srgb 0.0941177 0.113726 0.121569 / 0.6);
+  border: 1px solid color-mix(in srgb, transparent, #181d1f 20%);
+  border-radius: 2px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+.ag-summary .label {
+margin-right: 5px;
+}
+
+.ag-summary .value {
+  margin-right: 10px;
+}
+
+
