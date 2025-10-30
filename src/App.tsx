@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import AgGridTable from "./components/AgGridTable";
 import { useEntries } from "./hooks/useEntries";
 import Button from "./components/Button";
@@ -6,7 +6,7 @@ import "./agGridSetup"
 
 
 function App() {
-  const { original, rows, setRows, getChanges, resetToOriginal } = useEntries(25);
+  const { original, rows, setRows, getChanges, resetToOriginal } = useEntries(10);
 
   const handleCompare = useCallback(() => {
     const changed = getChanges();
