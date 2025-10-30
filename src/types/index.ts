@@ -23,3 +23,14 @@ export type Entry = {
     yearData: Record<YearKey, YearDataItem>;
     _id?: string;
 };
+
+export type SelectionStats = {
+    selectedRowIndexes: number[]; // unique row indexes touched by selection
+    selectedRowCount: number; // unique rows count
+    totalRows: number; // total rows in grid (after filter/sort)
+    count: number; // numeric cells count
+    sum: number; // numeric sum
+    avg: number | null;
+    min: number | null;
+    max: number | null;
+};

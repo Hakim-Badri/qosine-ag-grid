@@ -5,19 +5,22 @@ import type { ColDef } from "ag-grid-community";
  * Factory to return column defs. Call with desired minWidth.
  */
 export function getColDefs(minWidth = 60): ColDef[] {
+    const baseCellClass = (params: any) =>
+        params.colDef.editable === false ? "non-editable" : "";
     return [
-        { headerName: "Service", field: "serviceName", editable: false, minWidth },
-        { headerName: "Act", field: "actName", editable: true, minWidth },
-        { headerName: "Remarks", field: "remarks", editable: true, minWidth },
-        { headerName: "Quote", field: "quote", editable: false, minWidth },
-        { headerName: "2022-2023", field: "2022", editable: false, minWidth },
-        { headerName: "2023-2024", field: "2023", editable: false, minWidth },
-        { headerName: "2024-2025", field: "2024", editable: false, minWidth },
+        { headerName: "Service", field: "serviceName", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "Act", field: "actName", editable: true, minWidth, cellClass: baseCellClass },
+        { headerName: "Remarks", field: "remarks", editable: true, minWidth, cellClass: baseCellClass },
+        { headerName: "Quote", field: "quote", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "2022-2023", field: "2022", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "2023-2024", field: "2023", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "2024-2025", field: "2024", editable: false, minWidth, cellClass: baseCellClass },
         {
             headerName: "Price",
             field: "price",
             editable: true,
             minWidth,
+            cellClass: baseCellClass,
             valueParser: (p: any) => {
                 const n = Number(p.newValue);
                 return Number.isNaN(n) ? 0 : n;
@@ -46,10 +49,17 @@ export function getColDefs(minWidth = 60): ColDef[] {
                 const a4 = Number(params.data?.acc4 || 0);
                 return price - (a1 + a2 + a3 + a4);
             },
+            cellClass: baseCellClass,
+            cellClassRules: {
+                "negative-diff": (params) => {
+                    const val = Number(params.value);
+                    return !Number.isNaN(val) && val < 0;
+                },
+            },
         },
-        { headerName: "acc1 2024-25", field: "acc1_2024", editable: false, minWidth },
-        { headerName: "acc2 2024-25", field: "acc2_2024", editable: false, minWidth },
-        { headerName: "acc3 2024-25", field: "acc3_2024", editable: false, minWidth },
-        { headerName: "acc4 2024-25", field: "acc4_2024", editable: false, minWidth },
+        { headerName: "acc1 2024-25", field: "acc1_2024", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "acc2 2024-25", field: "acc2_2024", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "acc3 2024-25", field: "acc3_2024", editable: false, minWidth, cellClass: baseCellClass },
+        { headerName: "acc4 2024-25", field: "acc4_2024", editable: false, minWidth, cellClass: baseCellClass },
     ];
 }

@@ -9,11 +9,14 @@ import {
     TextFilterModule,
     NumberFilterModule,
     UndoRedoEditModule,
+    CellStyleModule,
+    ClientSideRowModelApiModule,
 } from "ag-grid-community";
-import { CellSelectionModule, ClipboardModule } from "ag-grid-enterprise";
+import {
+    ClipboardModule,
+    CellSelectionModule,
+} from "ag-grid-enterprise";
 
-
-// register only community modules we need
 ModuleRegistry.registerModules([
     ClientSideRowModelModule,
     RowSelectionModule,
@@ -24,6 +27,8 @@ ModuleRegistry.registerModules([
     TextFilterModule,
     NumberFilterModule,
     UndoRedoEditModule,
+    CellStyleModule,
+    ClientSideRowModelApiModule,
     CellSelectionModule,
     ClipboardModule
 ]);
