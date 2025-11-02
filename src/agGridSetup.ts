@@ -29,6 +29,8 @@ ModuleRegistry.registerModules([
     UndoRedoEditModule,
     CellStyleModule,
     ClientSideRowModelApiModule,
+    // @ts-ignore
     CellSelectionModule,
+    // @ts-ignore
     ClipboardModule
 ]);

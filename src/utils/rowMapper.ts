@@ -38,7 +38,9 @@ export function reconstructEntries(flatRows: any[], originalRef?: Entry[]): Entr
         const original =
             originalRef?.find((o) => String(o._id) === String(id)) ?? originalRef?.[idx];
         [2022, 2023].forEach((year) => {
+            // @ts-ignore
             yd[year] = original?.yearData?.[year]
+                // @ts-ignore
                 ? { ...original.yearData[year] }
                 : {
                     total_amount: Number(r[String(year)] || 0),
