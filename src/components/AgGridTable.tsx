@@ -30,7 +30,7 @@ const gridOptions = {
 
 }
 
-export default function AgGridTable({ rows, setRows, minWidth = 60 }: Props) {
+export default function AgGridTable({ rows, setRows, original, minWidth = 60 }: Props) {
 
     const gridApiRef = useRef<GridApi | null>(null);
     const agRows = useMemo(() => flattenEntries(rows), [rows]);
@@ -53,19 +53,18 @@ export default function AgGridTable({ rows, setRows, minWidth = 60 }: Props) {
         if (!api) return;
         const flatRows: any[] = [];
         api.forEachNode((n) => flatRows.push(n.data));
-        const reconstructed = reconstructEntries(flatRows);
+        const reconstructed = reconstructEntries(flatRows, original);
         setRows(reconstructed);
     }, [setRows]);
 
     const onCellSelectionChanged = useCallback(() => {
         const api = gridApiRef.current;
         const stats = getSelectedCellSummary(api);
-        console.log("stats: ", stats)
         setSelectionStats(stats);
     }, []);
 
     return (
-        <div className="ag-grid" style={{ height: "68vh", width: "100%" }}>
+        <div className="ag-grid" style={{ height: "51.2vh", }}>
             <AgGridReact
                 theme={myTheme}
                 rowData={agRows}
@@ -79,8 +78,7 @@ export default function AgGridTable({ rows, setRows, minWidth = 60 }: Props) {
                 cellSelection={gridOptions.cellSelection}
                 animateRows
             />
-
-            {selectionStats?.count ? <div className="ag-summary">
+            <div className="ag-summary">
                 <span className="label">Rows:</span>
                 <span className="value">
                     {selectionStats?.selectedRowCount}
@@ -109,8 +107,7 @@ export default function AgGridTable({ rows, setRows, minWidth = 60 }: Props) {
                 <span className="value">
                     {selectionStats?.sum}
                 </span>
-            </div> : null
-            }
+            </div>
         </div>
     );
 }
