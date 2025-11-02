@@ -1,6 +1,8 @@
-/* src/styles/aggrid-overrides.css */
-
 /* Light grey background for non-editable cells */
+.ag-grid {
+  margin-top: 20px;
+  padding: 20px;
+}
 .ag-grid .ag-cell.non-editable {
   background-color: #f3f3f3 !important;
 }
@@ -35,7 +37,7 @@ margin-right: 5px;
 }
 
 .ag-summary .value {
-  margin-right: 10px;
+  margin-right: 16px;
 }
 
 
