@@ -34,7 +34,7 @@ export function createEntries(count = 20): Entry[] {
         }, {} as Record<YearKey, any>);
 
     return Array.from({ length: count }, (_, i) => ({
-        _id: `entry_${i + 1}`,
+        _id: `${i + 1}`,
         service: services[i],
         act: acts[i],
         quote: "",

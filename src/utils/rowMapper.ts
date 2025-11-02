@@ -1,5 +1,5 @@
 // src/utils/rowMapper.ts
-import type { Entry, YearKey } from "../types";
+import type { Entry } from "../types";
 
 /**
  * Convert nested Entry[] to a flat row array for AG Grid
@@ -31,26 +31,23 @@ export function flattenEntries(entries: Entry[]) {
  * Convert flat grid rows back into Entry[] structure.
  * It expects the flat rows to include the fields produced by `flattenEntries`.
  */
-export function reconstructEntries(flatRows: any[]): Entry[] {
-    const yrs: YearKey[] = [2022, 2023, 2024, 2025];
-    return flatRows.map((r) => {
+export function reconstructEntries(flatRows: any[], originalRef?: Entry[]): Entry[] {
+    return flatRows.map((r, idx) => {
         const yd: any = {};
-        // 2022
-        yd[2022] = {
-            total_amount: Number(r["2022"] || 0),
-            acc1: { amount: 0, isBilled: true },
-            acc2: { amount: 0, isBilled: true },
-            acc3: { amount: 0, isBilled: true },
-            acc4: { amount: 0, isBilled: true },
-        };
-        // 2023
-        yd[2023] = {
-            total_amount: Number(r["2023"] || 0),
-            acc1: { amount: 0, isBilled: true },
-            acc2: { amount: 0, isBilled: true },
-            acc3: { amount: 0, isBilled: true },
-            acc4: { amount: 0, isBilled: true },
-        };
+        const id = r._id ?? String(idx + 1);
+        const original =
+            originalRef?.find((o) => String(o._id) === String(id)) ?? originalRef?.[idx];
+        [2022, 2023].forEach((year) => {
+            yd[year] = original?.yearData?.[year]
+                ? { ...original.yearData[year] }
+                : {
+                    total_amount: Number(r[String(year)] || 0),
+                    acc1: { amount: 0, isBilled: true },
+                    acc2: { amount: 0, isBilled: true },
+                    acc3: { amount: 0, isBilled: true },
+                    acc4: { amount: 0, isBilled: true },
+                };
+        });
         // 2024
         yd[2024] = {
             total_amount: Number(r["2024"] || 0),
